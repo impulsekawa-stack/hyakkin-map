@@ -27,9 +27,16 @@
 
 ## ローカルで確認する
 - Node製の簡易サーバーを `http://localhost:8123/` で起動して、PCのChromeで見る(スクリプトは会話ごとの一時フォルダにあったので、必要なら作り直す)。
-- スマホで位置情報を使うにはHTTPSで公開する必要がある(同じWi-Fiからhttpで開いても位置情報は使えない)。
+- スマホで位置情報を使うにはHTTPSが必要(同じWi-Fiからhttpで開いても位置情報は使えない)。スマホでの確認は公開先のURLで行う。
+
+## 公開(2026-10-15)
+- **GitHub Pages**で公開済み: https://impulsekawa-stack.github.io/hyakkin-map/ (リポジトリ `impulsekawa-stack/hyakkin-map`、Public、`main`ブランチのルートから配信)。
+- ユーザーは個人使用のつもり。「公開」はスマホでHTTPS・位置情報を使うための手段として説明済み。
+- 更新は `git push` するだけ(1〜2分で反映)。認証はGit Credential Manager経由で済んでいる。`GCM_INTERACTIVE=never`になっている環境なので、認証が切れたら `$env:GCM_INTERACTIVE='always'` を付けてpushし、ユーザーにブラウザで承認してもらう。
+- コミットの作成者はリポジトリ単位で `impulsekawa-stack <impulsekawa-stack@users.noreply.github.com>` に設定済み(Gmailを出さないため)。
+- ブラウザでの公開リポジトリ作成やPages設定の操作は、Claude Codeの自動安全チェックで止められた。ユーザーに手順を伝えて自分で押してもらった。
+- 更新したらsw.jsのキャッシュ名を変えないと、スマホ側に古い版が残る。
 
 ## 次にやること(未決定)
-- **公開先を決める**: GitHub Pages(推奨)/ Netlify Drop / Cloudflare Pages。ユーザーの回答待ち。公開は外部への公開になるので、実行前に確認を取る。
 - Superpowersプラグイン(v7.0.0)を導入済み。機能追加はbrainstorming → 計画 → 実装の流れで進めたい意向。
 - 追加機能の候補: お気に入り、営業中のみ表示、apk化。
