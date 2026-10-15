@@ -1,0 +1,123 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1d1d1f;
+  --muted: #6e6e73;
+  --line: #e5e5ea;
+  --accent: #e4007f;
+  --shadow: 0 2px 10px rgba(0, 0, 0, .18);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1c1e;
+    --fg: #f2f2f7;
+    --muted: #a1a1a6;
+    --line: #38383a;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+}
+
+#map { position: absolute; inset: 0; z-index: 0; }
+
+/* ヘッダー */
+#topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: calc(env(safe-area-inset-top) + 8px) 12px 8px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+}
+#titlerow { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+h1 { font-size: 18px; margin: 0; color: var(--accent); }
+#radius {
+  font-size: 14px; padding: 4px 8px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+}
+#chips {
+  display: flex; gap: 6px; overflow-x: auto; margin-top: 8px; padding-bottom: 2px;
+  scrollbar-width: none;
+}
+#chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; display: flex; align-items: center; gap: 5px;
+  font-size: 13px; padding: 5px 10px; border-radius: 999px;
+  border: 1.5px solid var(--c); background: var(--c); color: #fff;
+  cursor: pointer; white-space: nowrap;
+}
+.chip.off { background: transparent; color: var(--muted); border-color: var(--line); }
+.chip .n { font-size: 11px; opacity: .85; }
+
+/* マーカー */
+.pin {
+  width: 30px; height: 30px; border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--c); border: 2px solid #fff; box-shadow: var(--shadow);
+  display: flex; align-items: center; justify-content: center;
+}
+.pin span { transform: rotate(45deg); color: #fff; font-weight: 700; font-size: 12px; }
+.me {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #0a84ff; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(10, 132, 255, .25);
+}
+
+/* ポップアップ */
+.leaflet-popup-content { margin: 12px 14px; font-size: 14px; line-height: 1.5; }
+.pop-chain { font-size: 12px; font-weight: 700; color: var(--c); }
+.pop-name { font-size: 15px; font-weight: 700; }
+.pop-meta { color: #555; font-size: 12px; }
+.pop-btn {
+  display: inline-block; margin-top: 8px; padding: 6px 12px; border-radius: 8px;
+  background: var(--accent); color: #fff !important; text-decoration: none; font-weight: 600;
+}
+
+/* ボタン */
+.fab {
+  position: absolute; right: 14px; bottom: 140px; z-index: 1000;
+  width: 48px; height: 48px; border-radius: 50%; border: none;
+  background: var(--bg); color: #0a84ff; font-size: 22px;
+  box-shadow: var(--shadow); cursor: pointer;
+}
+.floating {
+  position: absolute; left: 50%; transform: translateX(-50%); z-index: 1000;
+  top: calc(env(safe-area-inset-top) + 104px);
+  padding: 8px 16px; border-radius: 999px; border: none;
+  background: var(--accent); color: #fff; font-size: 14px; font-weight: 600;
+  box-shadow: var(--shadow); cursor: pointer;
+}
+.hidden { display: none; }
+
+/* 下の一覧シート */
+#sheet {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1000;
+  background: var(--bg); border-radius: 16px 16px 0 0; box-shadow: var(--shadow);
+  max-height: 55vh; display: flex; flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom);
+  transition: max-height .2s;
+}
+#sheet.collapsed { max-height: 64px; }
+#sheetHandle {
+  border: none; background: none; color: var(--fg); width: 100%;
+  padding: 8px 16px 12px; cursor: pointer; text-align: left;
+}
+.grip { display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--line); margin: 0 auto 8px; }
+#status { font-size: 14px; font-weight: 600; }
+#list { list-style: none; margin: 0; padding: 0 0 8px; overflow-y: auto; }
+#list li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border-top: 1px solid var(--line); cursor: pointer;
+}
+#list .dot {
+  flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--c);
+  color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+#list .info { flex: 1; min-width: 0; }
+#list .name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#list .sub { font-size: 12px; color: var(--muted); }
+#list .dist { flex: none; font-size: 13px; color: var(--muted); }
